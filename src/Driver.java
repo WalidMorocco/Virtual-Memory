@@ -13,6 +13,10 @@ public class Driver {
 		// Apply the FIFO algorithm
         FIFOAlgorithm fifoAlgorithm = new FIFOAlgorithm(numPageFrames);
         fifoAlgorithm.run(pageReferences);
+        
+        // Apply the LFU algorithm
+        LFUAlgorithm lfuAlgorithm = new LFUAlgorithm(numPageFrames);
+        lfuAlgorithm.run(pageReferences);
     }
 }
  
