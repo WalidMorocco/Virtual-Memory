@@ -9,11 +9,11 @@ public class AddressTranslation {
 	}
 	
 	public int getPageNumber(int address) {
-        return address / 256; // Assuming a page size of 256 bytes
+        return address / 256; 
     }
 
     public int getOffset(int address) {
-        return address % 256; // Assuming a page size of 256 bytes
+        return address % 256;
     }
 
     public int[] generatePageReferenceStream() {
