@@ -1,34 +1,43 @@
-import java.util.Arrays;
+import java.util.LinkedList;
 
 public class FIFOAlgorithm {
     private int numPageFrames;
-    private int[] pageFrames;
     private int numPageFaults;
 
+    // Constructor to get variables from driver and set the number of page faults to 0
     public FIFOAlgorithm(int numPageFrames) {
         this.numPageFrames = numPageFrames;
-        this.pageFrames = new int[numPageFrames];
         this.numPageFaults = 0;
     }
 
     public void run(int[] pageReferences) {
-        int pointer = 0;
+    	// Initialize a LinkedList to represent the page frames in memory
+        LinkedList<Integer> pageFrames = new LinkedList<>();
+
+        // Iterate over each page reference in the input array
         for (int i = 0; i < pageReferences.length; i++) {
+
+            // Get the current page reference
             int page = pageReferences[i];
-            boolean pageFault = true;
-            for (int j = 0; j < numPageFrames; j++) {
-                if (pageFrames[j] == page) {
-                    pageFault = false;
-                    break;
+
+            // If the page is not already in memory, add it to the end of the page frames list
+            if (!pageFrames.contains(page)) {
+
+                // If the number of page frames in memory is equal to the maximum number of page frames, remove the first page in the list
+                if (pageFrames.size() == numPageFrames) {
+                    pageFrames.removeFirst();
                 }
-            }
-            if (pageFault) {
-                pageFrames[pointer] = page;
-                pointer = (pointer + 1) % numPageFrames;
+
+                // Add the current page to the end of the page frames list
+                pageFrames.addLast(page);
+                
+                // Increment the number of page faults
                 numPageFaults++;
             }
-            System.out.println("Page Reference: " + page + ", Page Frames: " + Arrays.toString(pageFrames));
+            // Print out the current state of the page frames list after each page reference
+            System.out.println("Page Reference: " + page + ", Page Frames: " + pageFrames.toString());
         }
+        // Print out the total number of page faults at the end
         System.out.println("Number of Page Faults: " + numPageFaults);
     }
 }
